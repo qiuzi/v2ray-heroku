@@ -2,10 +2,10 @@
 
 # Download and install V2Ray
 mkdir /tmp/v2ray
-curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip
+curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/p4gefau1t/trojan-go/releases/download/v0.8.2/trojan-go-linux-amd64.zip
 unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
-install -m 755 /tmp/v2ray/v2ray /usr/local/bin/v2ray
-install -m 755 /tmp/v2ray/v2ctl /usr/local/bin/v2ctl
+install -m 755 /tmp/v2ray/trojan-go /usr/local/bin/v2ray
+#install -m 755 /tmp/v2ray/v2ctl /usr/local/bin/v2ctl
 
 # Remove temporary directory
 rm -rf /tmp/v2ray
@@ -14,29 +14,23 @@ rm -rf /tmp/v2ray
 install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
-    "inbounds": [
-        {
-            "port": $PORT,
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "$UUID",
-                        "alterId": 64
-                    }
-                ],
-                "disableInsecureEncryption": true
-            },
-            "streamSettings": {
-                "network": "ws"
-            }
-        }
+    "run_type": "server",
+    "local_addr": "127.0.0.1",
+    "local_port": $PORT,
+    "remote_addr": "www.apple.com",
+    "remote_port": 80,
+    "log_level": 5,
+    "password": [
+	"$UUID"
     ],
-    "outbounds": [
-        {
-            "protocol": "freedom"
-        }
-    ]
+"transport_plugin": {
+    "enabled": true,
+    "type": "plaintext"
+  },
+    "websocket": {
+    "enabled": true,
+    "path": "/wssopennet"
+    }
 }
 EOF
 
