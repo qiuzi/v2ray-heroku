@@ -15,11 +15,11 @@ install -d /usr/local/etc/v2ray
 cat << EOF > /usr/local/etc/v2ray/config.json
 {
     "run_type": "server",
-    "local_addr": "127.0.0.1",
+    "local_addr": "0.0.0.0",
     "local_port": $PORT,
     "remote_addr": "www.apple.com",
     "remote_port": 80,
-    "log_level": 5,
+    "log_level": 0,
     "password": [
 	"$UUID"
     ],
