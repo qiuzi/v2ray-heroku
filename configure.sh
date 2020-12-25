@@ -29,7 +29,7 @@ cat << EOF > /usr/local/etc/v2ray/config.json
   },
     "websocket": {
     "enabled": true,
-    "path": "/wssopennet"
+    "path": "/shop"
     }
 }
 EOF
