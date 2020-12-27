@@ -5,7 +5,7 @@ FROM ${ARCH}golang:1.15.5-alpine3.12 as builder
 ARG wg_go_tag=v0.0.20201118
 ARG wg_tools_tag=v1.0.20200827
 
-RUN apk add --update git build-base libmnl-dev iptables
+RUN apk add --update git build-base libmnl-dev iptables openvpn
 
 RUN git clone https://git.zx2c4.com/wireguard-go && \
     cd wireguard-go && \
