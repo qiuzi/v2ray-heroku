@@ -1,56 +1,28 @@
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+ARG ARCH=
 
-# set version label
-ARG BUILD_DATE
-ARG VERSION
-ARG WIREGUARD_RELEASE
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="aptalca"
+FROM ${ARCH}golang:1.15.5-alpine3.12 as builder
 
-ENV DEBIAN_FRONTEND="noninteractive"
+ARG wg_go_tag=v0.0.20201118
+ARG wg_tools_tag=v1.0.20200827
 
-ADD configure.sh /configure.sh
-RUN \
- echo "**** install dependencies ****" && \
- apt-get update && \
- apt-get install -y --no-install-recommends \
-	bc \
-	build-essential \
-	curl \
-	dkms \
-	git \
-	gnupg \ 
-	ifupdown \
-	iproute2 \
-	iptables \
-	iputils-ping \
-	jq \
-	libc6 \
-	libelf-dev \
-	net-tools \
-	openresolv \
-	perl \
-	pkg-config \
-	qrencode && \
- echo "**** install wireguard-tools ****" && \
- if [ -z ${WIREGUARD_RELEASE+x} ]; then \
-	WIREGUARD_RELEASE=$(curl -sX GET "https://api.github.com/repos/WireGuard/wireguard-tools/tags" \
-	| jq -r .[0].name); \
- fi && \
- cd /app && \
- git clone https://git.zx2c4.com/wireguard-linux-compat && \
- git clone https://git.zx2c4.com/wireguard-tools && \
- cd wireguard-tools && \
- git checkout "${WIREGUARD_RELEASE}" && \
- make -C src -j$(nproc) && \
- make -C src install && \
- echo "**** clean up ****" && \
- rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/* \
-	/var/tmp/*
+RUN apk add --update git build-base libmnl-dev iptables
 
-# add local files
-COPY /root /
+RUN git clone https://git.zx2c4.com/wireguard-go && \
+    cd wireguard-go && \
+    git checkout $wg_go_tag && \
+    make && \
+    make install
 
-CMD /configure.sh
+ENV WITH_WGQUICK=yes
+RUN git clone https://git.zx2c4.com/wireguard-tools && \
+    cd wireguard-tools && \
+    git checkout $wg_tools_tag && \
+    cd src && \
+    make && \
+    make install
+
+FROM ${ARCH}alpine:3.12
+
+RUN apk add --no-cache --update bash libmnl iptables iproute2
+
+COPY --from=builder /usr/bin/wireguard-go /usr/bin/wg* /usr/bin/
