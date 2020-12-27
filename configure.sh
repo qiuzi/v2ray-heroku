@@ -34,5 +34,17 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 }
 EOF
 
+cat << EOF > /etc/wireguard/wg0.conf
+[Interface]
+PrivateKey = MASsnLzQ3TSD/TUAYdJJC9S/eVjFZMphSck8j+0/wXQ=
+Address = fd01:5ca1:ab1e:8e09:3a79:e6ae:f988:13e3/128
+MTU = 1280
+[Peer]
+PublicKey = bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=
+AllowedIPs = ::/0
+Endpoint = engage.cloudflareclient.com:2408
+EOF
+
 # Run V2Ray
+wg-quick up wg0
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
