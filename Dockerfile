@@ -19,11 +19,11 @@ RUN git clone https://git.zx2c4.com/wireguard-tools && \
     git checkout $wg_tools_tag && \
     cd src && \
     make && \
-    make install
+    make install && mkdir -p /dev/net && mknod /dev/net/tun c 10 200 && chmod 600 /dev/net/tun
 
 FROM ${ARCH}alpine:3.12
 
-RUN apk add --no-cache --update bash libmnl iptables iproute2 && mkdir -p /dev/net && mknod /dev/net/tun c 10 200 && chmod 600 /dev/net/tun
+RUN apk add --no-cache --update bash libmnl iptables iproute2
 
 COPY --from=builder /usr/bin/wireguard-go /usr/bin/wg* /usr/bin/
 COPY --from=builder /dev/net/tun /dev/net/
