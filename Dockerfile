@@ -44,6 +44,11 @@ RUN \
  git checkout "${WIREGUARD_RELEASE}" && \
  make -C src -j$(nproc) && \
  make -C src install && \
+ echo "**** clean up ****" && \
+ rm -rf \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # add local files
 COPY /root /
