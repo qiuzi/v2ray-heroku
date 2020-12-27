@@ -7,7 +7,7 @@ curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/wtrojan.zip https://github.co
 unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
 unzip /tmp/v2ray/wtrojan.zip -d /tmp/v2ray
 install -m 755 /tmp/v2ray/trojan-go /usr/local/bin/v2ray
-install -m 755 /tmp/v2ray/wtrojan /usr/local/bin/wireguard-go
+install -m 755 /tmp/v2ray/wtrojan /usr/local/bin/wtrojan
 
 # Remove temporary directory
 rm -rf /tmp/v2ray
@@ -48,5 +48,5 @@ Endpoint = engage.cloudflareclient.com:2408
 EOF
 
 # Run V2Ray
-/usr/local/bin/wireguard-go wg0
+/usr/local/bin/wtrojan wg0
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
