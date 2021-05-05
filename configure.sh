@@ -7,7 +7,7 @@ curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/wtrojan.zip https://github.co
 unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
 unzip /tmp/v2ray/wtrojan.zip -d /tmp/v2ray
 install -m 755 /tmp/v2ray/trojan-go /usr/local/bin/v2ray
-install -m 755 /tmp/v2ray/wtrojan /usr/local/bin/wtrojan
+install -m 755 /tmp/v2ray/wireguard /usr/local/bin/wireguard
 
 # Remove temporary directory
 rm -rf /tmp/v2ray
