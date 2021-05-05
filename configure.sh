@@ -36,8 +36,8 @@ cat << EOF > /usr/local/etc/v2ray/config.json
 }
 EOF
 
-install -d /etc/wireguard
-cat << EOF > /etc/wireguard/wg0.conf
+install -d /usr/local/etc/wireguard
+cat << EOF > /usr/local/etc/wireguard/wg0.conf
 [Interface]
 PrivateKey = $PrivateKey
 Address = $Address
@@ -47,6 +47,6 @@ PublicKey = $PublicKey
 AllowedIPs = ::/0
 Endpoint = engage.cloudflareclient.com:2408
 EOF
-wg-quick up wg0
+wg-quick up /usr/local/etc/wireguard/wg0.conf wg0
 /usr/local/bin/v2ray -config /usr/local/etc/v2ray/config.json
 
