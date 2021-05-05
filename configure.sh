@@ -2,7 +2,7 @@
 
 # Download and install V2Ray
 mkdir /tmp/v2ray
-curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/p4gefau1t/trojan-go/releases/download/v0.8.2/trojan-go-linux-amd64.zip
+curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/v2ray.zip https://github.com/p4gefau1t/trojan-go/releases/download/v0.9.1/trojan-go-linux-amd64.zip
 #curl -L -H "Cache-Control: no-cache" -o /tmp/v2ray/wtrojan.zip https://github.com/qiuzi/v2ray-heroku/raw/master/wtrojan.zip
 unzip /tmp/v2ray/v2ray.zip -d /tmp/v2ray
 #unzip /tmp/v2ray/wtrojan.zip -d /tmp/v2ray
