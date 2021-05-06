@@ -25,4 +25,4 @@
 
 ## 注意
 
-WebSocket 路径为 `/shop`。
+WebSocket 路径为 `/shop`
