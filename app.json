@@ -6,18 +6,6 @@
         "UUID": {
             "description": "V2Ray UUID",
             "value": "trojan-admin"
-#        },
-#        "PrivateKey": {
-#            "description": "wgcf PrivateKey",
-#            "value": "CCl6IZGneAOCZh9RYgV0Cq0c9xL*********"
-#        },
-#        "Address": {
-#            "description": "wgcf Address",
-#            "value": "fd01:5ca1:ab1e:8604:4***********/128"
-#        },
-#        "PublicKey": {
-#            "description": "wgcf PublicKey",
-#           "value": "bmXOC+F1FxEMF9**********"
         }
     },
     "website": "https://ibcl.us/Heroku-V2Ray_20191014/",
